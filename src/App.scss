@@ -2,11 +2,43 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f1f1f1;
+  // background-color: #a19c9c;
+  // background-image: url("./shapes.png");
+  // background-blend-mode: soft-light;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.bg {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: 250% 250%;
+  background-image: linear-gradient(
+    -45deg,
+    #ffc400c9 8%,
+    #7faa56 25%,
+    #576fe6 51%,
+    #ce31b9 100%
+  );
+  animation: bgAnim 10s ease infinite;
+}
+
+* {
+  box-sizing: border-box;
+  user-select: none;
 }
 
 input {
   padding: 12px 24px;
+  &[type="checkbox"] {
+    display: none;
+  }
 }
 
 button {
@@ -24,29 +56,43 @@ button {
   display: flex;
   flex-direction: column;
   margin-top: 100px;
+  width: 300px;
   &--search {
     & input {
-      margin-bottom: 20px;
-      border: 1px solid #8400ff;
-      background-color: #ebd5ff;
+      &::placeholder {
+        color: #ffffff;
+      }
+      width: 100%;
+      margin-bottom: 4px;
+      border: 1px solid #ce31b9;
+      background-color: #ca73bf;
+      color: #ffffff;
       &:focus {
-        outline: 1px solid #40007c;
+        outline: 1px solid #ce31b9;
       }
     }
   }
   &--add {
+    display: flex;
+    flex-wrap: nowrap;
+    border: 1px solid #186d18;
     & input {
-      border: 1px solid #6ab7ff;
-      background-color: #d4eaff;
-      margin-right: 8px;
+      border: none;
+      width: 100%;
+      padding: 16px;
+      background-color: #a8e2a8d8;
+      transition: all 200ms linear;
       &:focus {
         outline: 1px solid #4ea9fd;
       }
     }
-    margin-bottom: 40px;
+    margin-bottom: 12px;
     button {
-      padding: 12px;
-      background-color: #000000;
+      padding: 0;
+      padding: 0 16px;
+      border: none;
+      border-left: 1px solid #186d18;
+      background-color: #7faa56;
       color: #ffffff;
       transition: all 200ms linear;
       &:hover {
@@ -55,35 +101,94 @@ button {
       }
     }
   }
-  & ul {
-    padding: 0;
-    li:nth-of-type(even) {
-      background-image: linear-gradient(to right, #00ff73, #5dc01b);
-      & button {
-        border: 1px solid #00ff73;
+  &--list {
+    width: 100%;
+    input[type="checkbox"]:checked + label {
+      opacity: 0.2;
+      position: relative;
+      &::after {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: #000000;
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform-origin: left;
+        animation: 500ms line;
       }
     }
-    & li {
-      transition: all 250ms linear;
+    & ul {
       width: 100%;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px;
-      gap: 16px;
-      background-image: linear-gradient(to right, #5978ff, #6ab7ff);
-      & button {
-        padding: 12px;
-        background-color: transparent;
-        color: #ffffff;
-        transition: all 200ms linear;
+      padding: 0;
+      transition: all 500ms linear;
+      li:nth-of-type(even) {
+        background-image: linear-gradient(to right, #ffc400c9, #f8f549be);
+        & button {
+          border-left: 1px solid #ffc400c9;
+        }
+      }
+      & li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        transition: all 250ms linear;
+        list-style: none;
+        gap: 16px;
+        background-image: linear-gradient(to right, #5978ff, #6ab7ff);
         border: 1px solid #5978ff;
+        margin-bottom: 4px;
+        & label {
+          padding-left: 12px;
+          text-transform: capitalize;
+        }
+        & button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 16px;
+          background-color: transparent;
+          border: none;
+          border-left: 1px solid #5978ff;
+          &:hover {
+            background-color: #f1f1f1;
+            color: #000000;
+          }
+        }
         &:hover {
-          background-color: #f1f1f1;
-          color: #000000;
+          translate: -6px;
+        }
+      }
+      &:has(.todo--empty) {
+        & li {
+          padding: 12px;
+          display: flex;
+          justify-content: center;
+          border: 1px solid #ffc400c9;
+          &:hover {
+            translate: 0;
+          }
         }
       }
     }
+  }
+}
+
+@keyframes line {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes bgAnim {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }

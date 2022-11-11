@@ -5,14 +5,13 @@ import { v4 as id } from "uuid";
 interface Task {
   task: string;
   taskId: string;
-  complete: boolean;
+  complete: false;
 }
 
 function App() {
   const [toDoList, setToDoList] = useState<Task[]>([]);
   const [taskName, setTaskName] = useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");
-
   const LOCAL_STORAGE_KEY = "tasks";
 
   const handleSubmit = () => {
@@ -26,10 +25,8 @@ function App() {
     }
   };
 
-  const handleDelete = (id: any) => {
-    const tasksCopy: Task[] = [...toDoList];
-    tasksCopy.splice(id, 1);
-    setToDoList(tasksCopy);
+  const handleDelete = (id: string) => {
+    setToDoList(toDoList.filter((task: Task) => task.taskId !== id));
   };
 
   const handleFilter = (value: Task) => {
@@ -47,8 +44,11 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDoList));
   }, [toDoList]);
 
+  useEffect(() => {}, []);
+
   return (
     <>
+      <div className="bg"></div>
       <div className="todo">
         <div className="todo--search">
           <input
@@ -59,21 +59,38 @@ function App() {
         </div>
         <div className="todo--add">
           <input
+            maxLength={28}
             placeholder="Add new task"
             onChange={(e) => setTaskName(e.target.value)}
             type="text"
             value={taskName}
+            id="newTask"
           />
           <button onClick={handleSubmit}>Add task</button>
         </div>
-        <ul className="todo--list">
-          {toDoList.filter(handleFilter).map((item) => (
-            <li key={item.taskId}>
-              <div>{item.task}</div>
-              <button onClick={() => handleDelete(item.taskId)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <div className="todo--list">
+          <ul>
+            {toDoList.length > 0 ? (
+              toDoList.filter(handleFilter).map((item) => (
+                <li key={item.taskId}>
+                  <input
+                    className="checker"
+                    id={`taskCheck${item.taskId}`}
+                    type="checkbox"
+                  />
+                  <label htmlFor={`taskCheck${item.taskId}`}>{item.task}</label>
+                  <button onClick={() => handleDelete(item.taskId)}>
+                    Delete
+                  </button>
+                </li>
+              ))
+            ) : (
+              <li className="todo--empty">
+                <label htmlFor="newTask">No tasks to show</label>
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     </>
   );
