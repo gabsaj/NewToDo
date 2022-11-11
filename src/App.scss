@@ -1,38 +1,89 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #f1f1f1;
 }
 
-.App-link {
-  color: #61dafb;
+input {
+  padding: 12px 24px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+button {
+  padding: 12px;
+  background-color: #000000;
+  color: #ffffff;
+  transition: all 200ms linear;
+  &:hover {
+    background-color: #f1f1f1;
+    color: #000000;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  &--search {
+    & input {
+      margin-bottom: 20px;
+      border: 1px solid #8400ff;
+      background-color: #ebd5ff;
+      &:focus {
+        outline: 1px solid #40007c;
+      }
+    }
+  }
+  &--add {
+    & input {
+      border: 1px solid #6ab7ff;
+      background-color: #d4eaff;
+      margin-right: 8px;
+      &:focus {
+        outline: 1px solid #4ea9fd;
+      }
+    }
+    margin-bottom: 40px;
+    button {
+      padding: 12px;
+      background-color: #000000;
+      color: #ffffff;
+      transition: all 200ms linear;
+      &:hover {
+        background-color: #f1f1f1;
+        color: #000000;
+      }
+    }
+  }
+  & ul {
+    padding: 0;
+    li:nth-of-type(even) {
+      background-image: linear-gradient(to right, #00ff73, #5dc01b);
+      & button {
+        border: 1px solid #00ff73;
+      }
+    }
+    & li {
+      transition: all 250ms linear;
+      width: 100%;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      gap: 16px;
+      background-image: linear-gradient(to right, #5978ff, #6ab7ff);
+      & button {
+        padding: 12px;
+        background-color: transparent;
+        color: #ffffff;
+        transition: all 200ms linear;
+        border: 1px solid #5978ff;
+        &:hover {
+          background-color: #f1f1f1;
+          color: #000000;
+        }
+      }
+    }
   }
 }
