@@ -12,7 +12,6 @@ function App() {
   const [toDoList, setToDoList] = useState<Task[]>([]);
   const [taskName, setTaskName] = useState<string>("");
   const [searchValue, setSearchValue] = useState<string>("");
-  const LOCAL_STORAGE_KEY = "tasks";
 
   const handleSubmit = () => {
     if (taskName !== "") {
@@ -21,7 +20,6 @@ function App() {
         { task: taskName, taskId: id(), complete: false },
       ]);
       setTaskName("");
-      // window.alert("Task created");
     }
   };
 
@@ -39,12 +37,6 @@ function App() {
     )
       return value;
   };
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(toDoList));
-  }, [toDoList]);
-
-  useEffect(() => {}, []);
 
   return (
     <>
